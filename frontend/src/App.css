@@ -1,9 +1,16 @@
 .App {
+  display:flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
+  justify-content: center;
+  background-color:palegoldenrod;
+  height: 100%;
 }
 
 .App-header {
-  background-color: #420bc0;
+  width: 100%;
+  background-color:rgb(158, 184, 15);
   min-height:auto;
   display:flex;
   flex-direction: column;
@@ -15,15 +22,30 @@
 }
 
 .App-fields {
-  display: flex;
+  width: 400px;
+  display:flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
 .App-fields input{
+  display:flex;
   width: 400px;
   height: 30px;
   margin: 10px;
-  padding: 5px;
+  padding: 3px;
+ }
+
+button{  
+  display:center;
+  width: 130px;
+  height: 40px;
+}
+
+.My-btns{
+  display:flex;
+  flex-direction:row;
+  margin: 10px;
+  padding: 2px;
 }
