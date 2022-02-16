@@ -43,6 +43,7 @@ app.post('/add', (req,res) => {
 });
 
 app.get('/showall', (req, res) => {
+    console.log(req)
     const selectAllSqlStmt = 'select * from users'
     db.query(selectAllSqlStmt, (err, result) => {
         if(err) throw err
