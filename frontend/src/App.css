@@ -1,19 +1,22 @@
 .App {
-  display:flex;
+  height: 100%;
+  width: 100%;
+  background-color:palegoldenrod;
+  /* display:flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  justify-content: center;
-  background-color:palegoldenrod;
-  height: 100%;
+  justify-content: center; */
+
 }
 
 .App-header {
-  width: 100%;
+  width:100%;
+  height: 20%;
   background-color:rgb(158, 184, 15);
-  min-height:auto;
+  /* min-height:auto; */
   display:flex;
-  flex-direction: column;
+  /* flex-direction: column; */
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
@@ -21,24 +24,34 @@
   margin-bottom: 10px;
 }
 
-.App-fields {
-  width: 400px;
+.Body-section{
+  width:100%;
+  height: 80%;
   display:flex;
+  flex-direction: row;
+}
+
+.App-fields {
+  width: 70%;
+  height: 100%;
+  float: left;
+  display:block;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  margin: 10px;
+  padding: 1px;
 }
 
 .App-fields input{
   display:flex;
+  flex-direction: column;
   width: 400px;
   height: 30px;
   margin: 10px;
-  padding: 3px;
+  padding: 1px;
  }
 
 button{  
-  display:center;
+  display:auto;
   width: 130px;
   height: 40px;
   font-weight: bold;
@@ -55,17 +68,36 @@ button{
   display:flex;
   flex-direction: column;
   padding: 5px;
-
-
+  margin: 10px;
 }
 
 .List-items{
   display:flex;
   flex-direction: row;
-  width:auto;
-  padding: 3px;
+  margin: 10px;
+  width:50%;
   justify-content:space-between;
-  text-align: center;
+  /* text-align: center; */
+}
 
+.Right-tab{
+  width: 25%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  background-color:rgb(244, 247, 81);
+  float: right;
+  justify-content:top;
+  border: 0.5px solid black;
+}
 
+.Upcoming-list{
+  display:flex;
+  flex-direction: column;
+}
+
+.Upcoming-list-items{
+  display:flex;
+  flex-direction: row;
+  /* justify-content: space-between; */
 }

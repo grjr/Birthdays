@@ -50,3 +50,12 @@ app.get('/showall', (req, res) => {
         res.send(result)
     })
 })
+
+app.get('/upcoming', (req,res) => {
+    const upcomingStmt = 'select * from users where extract(MONTH FROM birthday) = extract(MONTH FROM curdate())'
+    //const upcomingStmt = 'select * from users where birthday.getMonth()=new Date().getMonth()'
+    db.query(upcomingStmt, (err, result) => {
+        if(err) throw err
+        res.send(result)
+    })
+})
