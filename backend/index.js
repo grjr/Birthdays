@@ -2,9 +2,11 @@ const express = require('express')
 const bodyparser = require('body-parser')
 const app = express()
 const cors = require('cors')
-//const mysql = require('mysql')
 const mysql = require('mysql2')
 const {urlencoded} = require('body-parser')
+require('dotenv').config()
+const sendgridMail= require('@sendgrid/mail')
+sendgridMail.setApiKey(process.env.SENDGRID_API_KEY)
 
 const port = 9000
 app.listen(port, () => {
@@ -21,13 +23,20 @@ const db = mysql.createPool({
 app.use(cors())
 app.use(express.json())
 
-// app.get('/', (req, res) => {
-//     const sqlStmt = "insert into users(name,birthday) values('Aami', date '1988-11-10')";
-//     db.query(sqlStmt, (err, result) => {
-//         if (err) throw err;
-//         res.send('Ta-da !!');
-//     })
-// });
+app.post('/send', (req, res) => {
+    sendMail('Test New','This is sent from the API')
+    function sendMail(subject,body){
+        const email = {
+            to: 'jekes64261@naluzotan.com',
+            from: 'greety89@gmail.com',
+            subject: subject,
+            text: body,
+            body: body
+        }
+        sendgridMail.send(email);
+    }
+});
+
 
 app.post('/add', (req,res) => {
     console.log(req.body)
@@ -51,11 +60,26 @@ app.get('/showall', (req, res) => {
     })
 })
 
+app.get('/today', (req,res) => {
+    const upcomingStmt = 'select * from users where extract(MONTH FROM birthday)=extract(MONTH FROM curdate()) and extract(DAY FROM birthday)=extract(DAY FROM curdate())'
+    db.query(upcomingStmt, (err, result) => {
+        
+        if(err) throw err
+        else{
+            res.send(result)
+            
+        }
+    })
+    
+      
+})
+
 app.get('/upcoming', (req,res) => {
-    const upcomingStmt = 'select * from users where extract(MONTH FROM birthday) = extract(MONTH FROM curdate())'
-    //const upcomingStmt = 'select * from users where birthday.getMonth()=new Date().getMonth()'
+    const upcomingStmt = 'select * from users where  extract(MONTH FROM birthday)=extract(MONTH FROM curdate()) and extract(DAY FROM birthday) > extract(DAY FROM curdate())'
     db.query(upcomingStmt, (err, result) => {
         if(err) throw err
         res.send(result)
     })
 })
+
+
