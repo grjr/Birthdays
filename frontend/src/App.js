@@ -11,14 +11,11 @@ function App() {
   const [todayList, setTodayList] = useState([])
   const [upcomingList, setUpcomingList] = useState([])
 
-  const [email,setEmail] = useState({})
-  const [subject,setSubject] = useState("")
-  const [body,setBody] = useState("")
-
-  function sendBdayNoti() {
+  const sendBdayNoti = () => {
+    console.log('Button clicked!')
     Axios.post('http://localhost:9000/send')
          .then(() => {
-           console.log('Birthday notification sent!!')
+           console.log('Email sent!')
          })
   }
 
@@ -94,6 +91,7 @@ function App() {
             <button onClick={submitBirthday}>ADD</button>
             <button onClick={showAll}>SHOW ALL</button>
             <button onClick={clearAll}>CLEAR</button>
+            <button onClick={sendBdayNoti}>EMAIL</button>
           </div>
 
           <div className='My-list'>
@@ -111,7 +109,7 @@ function App() {
           <h2>Today's birthdays!!</h2>
           <div className= 'Upcoming-list'>
             {todaysBirthdays()}
-            {sendBdayNoti()}
+            {/* {sendBdayNoti()} */}
             {todayList.map( (val,key) => {
               return <div className='Upcoming-list-items'>
                 <div>{val.name} </div>

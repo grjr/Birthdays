@@ -24,10 +24,30 @@ app.use(cors())
 app.use(express.json())
 
 app.post('/send', (req, res) => {
-    sendMail('Test New','This is sent from the API')
+    const todayAgainStmt = 'select * from users where extract(MONTH FROM birthday)=extract(MONTH FROM curdate()) and extract(DAY FROM birthday)=extract(DAY FROM curdate())'
+    db.query(todayAgainStmt, (err, result) => {
+        console.log(result)
+        const len= result.length
+        let bdayPerson = " "
+        if(len==1)
+            bdayPerson=result[0].name
+        else{
+            for(let i=0; i<len;i++)
+                if(i!=len-1)
+                    bdayPerson+= result[i].name + ' and '
+                else
+                    bdayPerson+= result[i].name
+            console.log(bdayPerson)
+        }
+        if(err) throw err
+        else{
+            sendMail("Today's birthdays!!", `Celebrating birthday today: ${bdayPerson}`)
+            res.send("Email sent successfully")
+        }
+    })
     function sendMail(subject,body){
         const email = {
-            to: 'jekes64261@naluzotan.com',
+            to: 'xowib66200@spruzme.com',
             from: 'greety89@gmail.com',
             subject: subject,
             text: body,
@@ -35,7 +55,7 @@ app.post('/send', (req, res) => {
         }
         sendgridMail.send(email);
     }
-});
+})
 
 
 app.post('/add', (req,res) => {
@@ -46,10 +66,10 @@ app.post('/add', (req,res) => {
     db.query(sqlInsertStmt, [username,birthday], (err, result) =>{
         console.log(result);
         if(err) //throw err
-            console.log(err);
+        console.log(err);
         res.send("Successfully added birthday!")
     })
-});
+})
 
 app.get('/showall', (req, res) => {
     console.log(req)
@@ -61,17 +81,11 @@ app.get('/showall', (req, res) => {
 })
 
 app.get('/today', (req,res) => {
-    const upcomingStmt = 'select * from users where extract(MONTH FROM birthday)=extract(MONTH FROM curdate()) and extract(DAY FROM birthday)=extract(DAY FROM curdate())'
-    db.query(upcomingStmt, (err, result) => {
-        
+    const todayStmt = 'select * from users where extract(MONTH FROM birthday)=extract(MONTH FROM curdate()) and extract(DAY FROM birthday)=extract(DAY FROM curdate())'
+    db.query(todayStmt, (err, result) => {
         if(err) throw err
-        else{
-            res.send(result)
-            
-        }
+        res.send(result)
     })
-    
-      
 })
 
 app.get('/upcoming', (req,res) => {
