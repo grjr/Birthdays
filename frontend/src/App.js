@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './App.css';
 import Axios from 'axios';
 
@@ -11,13 +11,23 @@ function App() {
   const [todayList, setTodayList] = useState([])
   const [upcomingList, setUpcomingList] = useState([])
 
-  const sendBdayNoti = () => {
+  // const sendBdayNoti = () => {
+  //   console.log('Button clicked!')
+  //   Axios.post('http://localhost:9000/send')
+  //        .then(() => {
+  //          console.log('Email sent!')
+  //        })
+  // }
+
+
+  //Using UseEffect hook with blank callback to stop rendering multiple times something is loaded
+  const sendBdayNoti = useEffect( () => {
     console.log('Button clicked!')
     Axios.post('http://localhost:9000/send')
          .then(() => {
            console.log('Email sent!')
          })
-  }
+  }, []);
 
   const submitBirthday = () =>{
     //console.log(username + birthday)
@@ -73,6 +83,7 @@ function App() {
   return (
     <div className='App'>
 
+
       <header className='App-header'>
         <h1>BIRTHDAYS</h1>
       </header>
@@ -91,7 +102,7 @@ function App() {
             <button onClick={submitBirthday}>ADD</button>
             <button onClick={showAll}>SHOW ALL</button>
             <button onClick={clearAll}>CLEAR</button>
-            <button onClick={sendBdayNoti}>EMAIL</button>
+            {/* <button onClick={sendBdayNoti}>EMAIL</button> */}
           </div>
 
           <div className='My-list'>
@@ -107,9 +118,9 @@ function App() {
 
         <div className='Right-tab'>
           <h2>Today's birthdays!!</h2>
+          {sendBdayNoti}
           <div className= 'Upcoming-list'>
             {todaysBirthdays()}
-            {/* {sendBdayNoti()} */}
             {todayList.map( (val,key) => {
               return <div className='Upcoming-list-items'>
                 <div>{val.name} </div>

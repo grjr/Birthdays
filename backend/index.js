@@ -31,7 +31,7 @@ app.post('/send', (req, res) => {
         let bdayPerson = " "
         if(len==1)
             bdayPerson=result[0].name
-        else{
+        else{ 
             for(let i=0; i<len;i++)
                 if(i!=len-1)
                     bdayPerson+= result[i].name + ' and '
@@ -47,7 +47,7 @@ app.post('/send', (req, res) => {
     })
     function sendMail(subject,body){
         const email = {
-            to: 'xowib66200@spruzme.com',
+            to: 'canebot785@sueshaw.com',
             from: 'greety89@gmail.com',
             subject: subject,
             text: body,
